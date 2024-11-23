@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.0;
+contract SupplyChain {
+struct Item
+{
+uint id;
+address owner; }
+mapping(uint=> Item) 
+public items;
+
+modifier onlyOwner(uint itemId) {
+require(items[itemId].owner == msg.sender, "Not the owner");
+_; }
+
+function transferItem(uint itemId, address newOwner) public onlyOwner(itemId) {
+require(newOwner != address(0), "Invalid new owner address");
+address previousOwner = items[itemId].owner;  
+items[itemId].owner = newOwner;
+    }
+ }
